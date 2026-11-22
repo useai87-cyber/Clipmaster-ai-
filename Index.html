@@ -1,0 +1,182 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ClipMaster AI</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;background:#0b1020;color:#fff;
+ font-family:Arial,sans-serif;
+}
+header{
+ padding:20px;background:#151b30;
+ display:flex;justify-content:space-between;
+ align-items:center;flex-wrap:wrap;gap:10px;
+}
+.logo{font-size:23px;font-weight:bold;color:#a78bfa}
+nav a{color:white;text-decoration:none;margin:8px;font-size:14px}
+main{max-width:950px;margin:auto;padding:20px}
+.hero{text-align:center;padding:35px 10px}
+.hero h1{font-size:34px}
+.hero span{color:#a78bfa}
+.hero p{color:#aeb8d0}
+.card{
+ background:#171f35;border:1px solid #303c59;
+ border-radius:15px;padding:20px;margin:18px 0;
+}
+h2{font-size:21px}
+.upload{
+ border:2px dashed #7860d9;
+ border-radius:12px;padding:30px 10px;
+ text-align:center;
+}
+input[type=file],select{
+ width:100%;padding:12px;margin:12px 0;
+ background:#252f48;color:white;
+ border:1px solid #48536d;border-radius:8px;
+}
+button{
+ border:0;background:#8055ed;color:white;
+ padding:14px;border-radius:9px;
+ font-size:16px;font-weight:bold;
+ cursor:pointer;width:100%;margin-top:10px;
+}
+button:hover{background:#6840d1}
+video{width:100%;margin-top:15px;border-radius:10px}
+label{display:block;margin-top:12px;color:#d5d9e8}
+.plans{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.price{font-size:28px;color:#a78bfa;font-weight:bold}
+.small{color:#aeb8d0;font-size:13px}
+ul{padding-left:20px;line-height:2}
+footer{text-align:center;color:#8994aa;padding:25px}
+@media(max-width:550px){
+ .plans{grid-template-columns:1fr}
+ .hero h1{font-size:27px}
+ nav{width:100%}
+}
+</style>
+</head>
+<body>
+
+<header>
+ <div class="logo">✨ ClipMaster AI</div>
+ <nav>
+  <a href="#upload">Upload</a>
+  <a href="#plans">Plans</a>
+ </nav>
+</header>
+
+<main>
+<section class="hero">
+ <h1>Turn Long Videos Into <span>Shorts</span></h1>
+ <p>AI Video Clipping • Auto Captions • YouTube Shorts</p>
+</section>
+
+<section class="card" id="upload">
+ <h2>📤 Upload Your Video</h2>
+ <div class="upload">
+  <p>Choose your video file</p>
+  <input type="file" id="videoFile" accept="video/*">
+  <p class="small">Upload a video from your device</p>
+ </div>
+ <video id="preview" controls hidden></video>
+
+ <h2>⚙️ Clip Settings</h2>
+
+ <label>Clip Duration</label>
+ <select id="duration">
+  <option value="30">30 Seconds</option>
+  <option value="45">45 Seconds</option>
+  <option value="60">60 Seconds</option>
+ </select>
+
+ <label>Caption Language</label>
+ <select id="language">
+  <option>English</option>
+  <option>Hindi</option>
+  <option>Bengali</option>
+ </select>
+
+ <label>Video Format</label>
+ <select id="format">
+  <option>9:16 Vertical Shorts</option>
+  <option>16:9 Landscape</option>
+ </select>
+
+ <button onclick="generate()">✨ Generate AI Clips</button>
+ <p id="message" class="small"></p>
+</section>
+
+<section class="card">
+ <h2>🎬 Your Clips</h2>
+ <p class="small">Your generated video clips will appear here.</p>
+ <div id="results"></div>
+</section>
+
+<section id="plans">
+ <h2>Choose Your Plan</h2>
+ <div class="plans">
+  <div class="card">
+   <h2>FREE PLAN</h2>
+   <div class="price">₹0 / Month</div>
+   <ul>
+    <li>Video Upload</li>
+    <li>Limited AI Clips</li>
+    <li>English Captions</li>
+    <li>9:16 Shorts</li>
+    <li>No Watermark</li>
+   </ul>
+   <button onclick="alert('Free Plan selected')">Get Started</button>
+  </div>
+
+  <div class="card">
+   <h2>PREMIUM PLAN</h2>
+   <div class="price">₹199 / Month</div>
+   <ul>
+    <li>More AI Processing</li>
+    <li>English, Hindi, Bengali</li>
+    <li>HD Export</li>
+    <li>Face Tracking</li>
+    <li>No Watermark</li>
+    <li>Authorized YouTube Import</li>
+   </ul>
+   <button onclick="alert('Premium payment system will be added later')">Go Premium</button>
+  </div>
+ </div>
+</section>
+</main>
+
+<footer>
+ ClipMaster AI © 2026
+</footer>
+
+<script>
+const fileInput=document.getElementById("videoFile");
+const preview=document.getElementById("preview");
+let videoURL=null;
+
+fileInput.addEventListener("change",function(){
+ if(this.files.length){
+  if(videoURL) URL.revokeObjectURL(videoURL);
+  videoURL=URL.createObjectURL(this.files[0]);
+  preview.src=videoURL;
+  preview.hidden=false;
+  document.getElementById("message").textContent=
+   "Video selected successfully!";
+ }
+});
+
+function generate(){
+ if(!fileInput.files.length){
+  alert("Please upload a video first.");
+  return;
+ }
+ document.getElementById("message").textContent=
+ "Video uploaded! AI clipping engine will be connected in the next step.";
+}
+</script>
+</body>
+</html>
